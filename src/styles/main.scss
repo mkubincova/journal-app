@@ -8,6 +8,7 @@
     margin-right: auto;
     padding-left: $padding-sm;
     padding-right: $padding-sm;
+    box-sizing: border-box;
 
     @media (min-width: $breakpoint-md) {
         padding-left: $padding-md;
