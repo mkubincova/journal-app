@@ -22,5 +22,6 @@
     {:else}
         <span class="notSignedInText">You are not signed in</span>
         <button on:click={() => signIn("github")}>Sign In with GitHub</button>
+        <button on:click={() => signIn("google")}>Sign In with Google</button>
     {/if}
 </p>
