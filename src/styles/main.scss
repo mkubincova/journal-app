@@ -1,0 +1,21 @@
+@import 'reset';
+@import 'variables';
+
+.container {
+    width: 100%;
+    max-width: $breakpoint-lg;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: $padding-sm;
+    padding-right: $padding-sm;
+
+    @media (min-width: $breakpoint-md) {
+        padding-left: $padding-md;
+        padding-right: $padding-md;
+    }
+
+    @media (min-width: $breakpoint-lg) {
+        padding-left: $padding-lg;
+        padding-right: $padding-lg;
+    }
+}
