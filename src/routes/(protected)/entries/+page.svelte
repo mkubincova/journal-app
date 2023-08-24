@@ -15,6 +15,7 @@
             <li>
                 <p>{entry.content}</p>
                 <small>{entry.date}</small>
+                <a href="/entries/{entry.id}">detail</a>
             </li>
         {/each}
     {:else}
