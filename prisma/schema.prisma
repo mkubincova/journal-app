@@ -63,5 +63,5 @@ model JournalEntry {
   date       DateTime @default(now())
   userId     String
   coverImage String?
-  user       User     @relation(fields: [userId], references: [id])
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
