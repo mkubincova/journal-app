@@ -6,8 +6,10 @@
 
 <header>
     <div>
-        <img src={logo} alt="Journal app logo" width="70" height="70" />
-        <span>Journal app</span>
+        <a href="/">
+            <img src={logo} alt="Journal app logo" width="70" height="70" />
+            <span>Journal app</span>
+        </a>
     </div>
     <div>
         {#if $page.data.session}
