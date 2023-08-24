@@ -30,5 +30,6 @@
 <small>{entry.date}</small>
 
 <button on:click={deleteItem}>delete</button>
+<a href="/entries/{entry.id}/update">edit</a>
 <br />
 <a href="/entries">All entries</a>
