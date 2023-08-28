@@ -34,6 +34,7 @@
         id="date"
         value={formatToDateInput(entry.date)}
     /><br />
+    <br />
 
     <button>Update</button>
 </form>

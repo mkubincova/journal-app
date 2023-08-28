@@ -1,6 +1,24 @@
 import { prisma } from '$lib/prisma';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
+export const GET: RequestHandler = async ({ params: { id } }) => {
+    try {
+        const record = await prisma.journalEntry.findUnique({
+            where: { id }
+        });
+
+        if (!record) {
+            const message = 'No journal entry with this ID.';
+            return json({ message }, { status: 404 });
+        }
+
+        return json(record);
+    } catch (error: any) {
+        return json({ message: error.message }, { status: 500 });
+    }
+};
+
+
 export const DELETE: RequestHandler = async ({ params: { id } }) => {
     try {
         await prisma.journalEntry.delete({
