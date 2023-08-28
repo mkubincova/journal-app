@@ -18,7 +18,6 @@ export const GET: RequestHandler = async ({ params: { id } }) => {
     }
 };
 
-
 export const DELETE: RequestHandler = async ({ params: { id } }) => {
     try {
         await prisma.journalEntry.delete({
