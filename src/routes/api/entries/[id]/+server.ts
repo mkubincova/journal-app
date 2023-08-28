@@ -1,7 +1,7 @@
 import { prisma } from '$lib/prisma';
-import { json } from '@sveltejs/kit';
+import { json, type RequestHandler } from '@sveltejs/kit';
 
-export const DELETE = async ({ params: { id } }) => {
+export const DELETE: RequestHandler = async ({ params: { id } }) => {
     try {
         await prisma.journalEntry.delete({
             where: { id }
@@ -16,3 +16,21 @@ export const DELETE = async ({ params: { id } }) => {
     }
 };
 
+export const PUT: RequestHandler = async ({ params: { id }, request }) => {
+    try {
+        const { content, date } = await request.json();
+
+        const record = await prisma.journalEntry.update({
+            where: { id },
+            data: { content, date },
+        });
+
+        return json(record);
+
+    } catch (error: any) {
+        if (error.code === 'P2025') {
+            return json({ message: error.meta.cause }, { status: 404 });
+        }
+        return json({ message: error.message }, { status: 500 });
+    }
+};
