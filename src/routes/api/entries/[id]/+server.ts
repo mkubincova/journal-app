@@ -35,11 +35,11 @@ export const DELETE: RequestHandler = async ({ params: { id } }) => {
 
 export const PUT: RequestHandler = async ({ params: { id }, request }) => {
     try {
-        const { content, date } = await request.json();
+        const data = await request.json();
 
         const record = await prisma.journalEntry.update({
             where: { id },
-            data: { content, date },
+            data,
         });
 
         return json(record);

@@ -1,36 +1,31 @@
-import { fail, redirect } from '@sveltejs/kit';
-import type { Actions } from './$types';
-import { prisma } from '$lib/prisma';
-
+import { fail, redirect, error, type Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {
-    default: async ({ request }) => {
-        const data = await request.formData();
+    default: async ({ request, fetch }) => {
+        const formData = await request.formData();
 
-        let content = data.get('content') as string;
-        let email = data.get('email');
-        let userId;
+        const content = formData.get('content');
+        const userId = formData.get('userId');
+        const inputDate = formData.get('date') as string;
 
-        if (email !== null && email !== undefined && typeof email == "string") {
-            userId = await prisma.user
-                .findUnique({ where: { email } })
-                .then(user => user?.id);
+        let date = inputDate ? new Date(inputDate) : new Date;
+        let ISODate = date.toISOString();
+
+        if (!content) {
+            return fail(400, { content, contentError: "Content is required!" });
         }
 
-        if (!content || !userId) {
-            return fail(400, { content, userId, missing: true });
-        }
-
-        const record = await prisma.journalEntry.create({
-            data: {
-                content: content,
-                date: new Date(),
-                userId: userId
-            },
+        const res = await fetch(`/api/entries`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ content, date: ISODate, userId })
         });
 
-        if (record) {
-            throw redirect(303, `/entries`);
+        if (res.ok) {
+            throw redirect(303, "/entries");
+        } else {
+            const resJSON = await res.json();
+            throw error(res.status, resJSON.message);
         }
     }
 };
