@@ -13,7 +13,7 @@
     </div>
     <div>
         {#if $page.data.session}
-            <a href="/profile">
+            <a href="/users/{$page.data.userId}">
                 <span>{$page.data.session.user?.name ?? "User"}</span>
                 {#if $page.data.session.user?.image}
                     <img
