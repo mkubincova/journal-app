@@ -2,8 +2,9 @@ import { fail, redirect, error } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
 export const actions: Actions = {
-    deleteItem: async ({ params, fetch }) => {
-        const userId = params.id;
+    deleteItem: async ({ fetch, locals }) => {
+        const session = await locals.getSession();
+        const userId = session?.user.id;
 
         const res = await fetch(`/api/users/${userId}`, {
             method: "DELETE",
@@ -17,10 +18,11 @@ export const actions: Actions = {
             throw error(res.status, resJSON.message);
         }
     },
-    editItem: async ({ request, fetch, params }) => {
-        const userId = params.id;
+    editItem: async ({ request, fetch, locals }) => {
+        const session = await locals.getSession();
         const formData = await request.formData();
 
+        const userId = session?.user.id;
         const username = formData.get('username');
 
         if (!username) {
@@ -34,7 +36,7 @@ export const actions: Actions = {
         });
 
         if (res.ok) {
-            throw redirect(303, `/users/${userId}`);
+            throw redirect(303, `/profile`);
         } else {
             const resJSON = await res.json();
             throw error(res.status, resJSON.message);

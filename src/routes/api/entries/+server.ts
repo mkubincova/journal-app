@@ -8,6 +8,9 @@ export const GET: RequestHandler = async ({ url }) => {
 
         const records = await prisma.journalEntry.findMany({
             where: whereOptions,
+            orderBy: {
+                date: 'desc'
+            }
         });
 
         return json(records);

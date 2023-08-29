@@ -1,11 +1,12 @@
 import { fail, redirect, error, type Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {
-    default: async ({ request, fetch }) => {
+    default: async ({ request, fetch, locals }) => {
         const formData = await request.formData();
+        const session = await locals.getSession();
 
+        const userId = session?.user.id;
         const content = formData.get('content');
-        const userId = formData.get('userId');
         const inputDate = formData.get('date') as string;
 
         let date = inputDate ? new Date(inputDate) : new Date;

@@ -16,8 +16,6 @@
     <input type="datetime-local" name="date" id="date" /><br />
     <br />
 
-    <input type="hidden" id="userId" name="userId" value={$page.data.userId} />
-
     <button>Create</button>
 </form>
 
