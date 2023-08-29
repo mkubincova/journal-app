@@ -6,8 +6,10 @@ import { prisma } from "$lib/prisma";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 
 import { AUTH_SECRET, GITHUB_ID, GITHUB_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from "$env/static/private";
+import { redirect, type Handle } from '@sveltejs/kit';
+import { sequence } from '@sveltejs/kit/hooks';
 
-export const handle = SvelteKitAuth({
+export const handleAuth = SvelteKitAuth({
     adapter: PrismaAdapter(prisma),
     secret: AUTH_SECRET,
     providers: [
@@ -29,3 +31,18 @@ export const handle = SvelteKitAuth({
         }
     }
 });
+
+export const handleProtectedRoutes: Handle = async ({ event, resolve }) => {
+    const session = await event.locals.getSession();
+
+    if (event.url.pathname.startsWith("/entries") || event.url.pathname.startsWith("/profile")) {
+        if (!session) {
+            throw redirect(303, "/");
+        }
+    }
+
+    const response = await resolve(event);
+    return response;
+};
+
+export const handle = sequence(handleAuth, handleProtectedRoutes);
