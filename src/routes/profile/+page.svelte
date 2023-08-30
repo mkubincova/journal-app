@@ -2,6 +2,7 @@
     import { page } from "$app/stores";
     import { enhance } from "$app/forms";
     import type { PageData } from "./$types";
+    import { signOut } from "@auth/sveltekit/client";
 
     export let data: PageData;
 
@@ -9,6 +10,8 @@
 </script>
 
 <h1>Profile</h1>
+
+<button class="btn" on:click={() => signOut()}>Logut</button>
 
 <form method="POST" action="?/editItem" use:enhance>
     <label for="username"> Username </label><br />

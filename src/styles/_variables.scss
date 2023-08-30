@@ -3,7 +3,45 @@ $breakpoint-sm: 640px;
 $breakpoint-md: 960px;
 $breakpoint-lg: 1280px;
 
-// paddings
-$padding-sm: 10px;
-$padding-md: 20px;
-$padding-lg: 30px;
+:root {
+    // paddings
+    --container-padding: 10px;
+
+    // colors
+    --pink-dark: #F6ADAC;
+    --pink-light: #F3D5D1;
+    --yellow: #F6D42E;
+    --blue-dark: #021997;
+    --blue-light: #B3BBE0;
+    --white: #F6F6F6;
+    --black: #343434;
+
+    // font size
+    --base: 18px;
+    --h1: 1.75rem;
+    --h2: 1.5rem;
+    --h3: 1.25rem;
+
+    @media (min-width: $breakpoint-sm) {
+        // paddings
+        --container-padding: 20px;
+    }
+
+    @media (min-width: $breakpoint-md) {
+        // paddings
+        --container-padding: 30px;
+
+        // font size
+        --h1: 2rem;
+        --h2: 1.75rem;
+        --h3: 1.5rem;
+    }
+
+    @media (min-width: $breakpoint-md) {
+        // paddings
+        --container-padding: 40px;
+
+        // font size
+        --base: 20px;
+    }
+}

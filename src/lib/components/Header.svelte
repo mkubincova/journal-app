@@ -1,20 +1,22 @@
 <script lang="ts">
-    import logo from "$assets/logo.jpeg";
     import { signIn, signOut } from "@auth/sveltekit/client";
     import { page } from "$app/stores";
+
+    import { BookOpen } from "lucide-svelte";
 </script>
 
-<header>
-    <div>
-        <a href="/">
-            <img src={logo} alt="Journal app logo" width="70" height="70" />
-            <span>Journal app</span>
-        </a>
-    </div>
-    <div>
+<header class="container">
+    <div class="links">
         {#if $page.data.session}
-            <a href="/profile">
-                <span>{$page.data.session.user?.name ?? "User"}</span>
+            <a href="/profile" class="profile">
+                <div class="profile-info">
+                    <span>{$page.data.session.user?.name ?? "Username"}</span>
+                    <span class="email"
+                        >{$page.data.session.user?.email ??
+                            "user@email.com"}</span
+                    >
+                </div>
+
                 {#if $page.data.session.user?.image}
                     <img
                         src={$page.data.session.user.image}
@@ -25,9 +27,10 @@
                     />
                 {/if}
             </a>
-            <button on:click={() => signOut()} class="button">Sign out</button>
         {:else}
-            <button on:click={() => signIn()}>Sign In</button>
+            <a href="/auth/signin">Login</a>
+            <button class="btn" on:click={() => signIn()}>Create account</button
+            >
         {/if}
     </div>
 </header>
@@ -35,9 +38,43 @@
 <style lang="scss">
     header {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
+        align-items: center;
+        color: var(--blue-dark);
+
+        > div {
+            padding: 10px 0;
+        }
+
+        .links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        a {
+            font-weight: 700;
+            text-decoration: none;
+        }
     }
     .avatar {
-        border-radius: 50%;
+        border-radius: 5px;
+    }
+
+    .profile {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .profile-info {
+            text-align: right;
+            line-height: 1;
+
+            .email {
+                font-size: 0.85em;
+                font-weight: 400;
+                display: block;
+            }
+        }
     }
 </style>

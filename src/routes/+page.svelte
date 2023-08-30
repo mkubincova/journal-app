@@ -1,13 +1,50 @@
 <script>
     import { page } from "$app/stores";
     import { signIn } from "@auth/sveltekit/client";
+    import { BookOpen } from "lucide-svelte";
 </script>
 
-<h1>Welcome to the journal app</h1>
+<div class="container center">
+    {#if $page.data.session}
+        <h1>Hello there.</h1>
+        <a href="/entries">Check your entries</a>
+        <a href="/entries/create">Make a new entry</a>
+    {:else}
+        <div class="logo">
+            <BookOpen size={60} color="var(--white)" />
+        </div>
+        <h1>Welcome to your<br />online journal!</h1>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+            id faucibus sem, eu maximus nisi. Donec efficitur lectus ac odio
+            hendrerit congue. Maecenas hendrerit magna vitae massa faucibus, ac
+            ullamcorper felis porttitor. Sed eu porttitor lorem. Curabitur sed
+            enim a erat feugiat fermentum.
+        </p>
 
-{#if $page.data.session}
-    <a href="/entries">Check your entries</a>
-    <a href="/entries/create">Make a new entry</a>
-{:else}
-    <button on:click={() => signIn()}>Sign In to continue</button>
-{/if}
+        <button class="btn btn-large" on:click={() => signIn()}
+            >Get Started</button
+        >
+    {/if}
+</div>
+
+<style lang="scss">
+    .container {
+        margin-top: 10vh;
+    }
+    p {
+        max-width: 70ch;
+        margin: 0 auto 20px;
+    }
+
+    .logo {
+        width: 90px;
+        height: 90px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        background-color: var(--pink-dark);
+        margin: 0 auto 20px;
+    }
+</style>

@@ -1,26 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 @import 'reset';
 @import 'variables';
+
+html {
+    font-family: 'Lato', sans-serif;
+    font-size: var(--base);
+    color: var(--black);
+
+}
+
+body {
+    line-height: 1.5;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: 700;
+    color: var(--blue-dark);
+    margin-bottom: 0.5em;
+}
+
+h1 {
+    line-height: 1.2;
+    font-size: var(--h1);
+}
+
+h2 {
+    line-height: 1.2;
+    font-size: var(--h2);
+}
+
+h3 {
+    line-height: 1.2;
+    font-size: var(--h3);
+}
+
+a {
+    color: inherit;
+    text-decoration: underline;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.btn {
+    border: 2px solid transparent;
+    background-color: var(--blue-dark);
+    color: var(--white);
+    border-radius: 30px;
+    padding: 8px 15px;
+    font-size: 0.85rem;
+    cursor: pointer;
+
+    &:hover {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0 0);
+    }
+
+    &:active {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.3) 0 0);
+    }
+
+    &-large {
+        font-size: 1rem;
+        padding: 12px 20px;
+    }
+}
 
 .container {
     width: 100%;
     max-width: $breakpoint-lg;
     margin-left: auto;
     margin-right: auto;
-    padding-left: $padding-sm;
-    padding-right: $padding-sm;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
     box-sizing: border-box;
-
-    @media (min-width: $breakpoint-md) {
-        padding-left: $padding-md;
-        padding-right: $padding-md;
-    }
-
-    @media (min-width: $breakpoint-lg) {
-        padding-left: $padding-lg;
-        padding-right: $padding-lg;
-    }
 }
+
 
 .error {
     color: red;
+}
+
+.center {
+    text-align: center;
 }
