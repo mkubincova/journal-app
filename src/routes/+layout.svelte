@@ -2,6 +2,7 @@
     import "../styles/main.scss";
     import { page } from "$app/stores";
     import { Header } from "$components";
+    import Navigation from "$components/Navigation.svelte";
 </script>
 
 <svelte:head>
@@ -10,9 +11,16 @@
 
 <div id="app">
     <Header />
-    <main>
-        <slot />
-    </main>
+    <div class="page-content container">
+        {#if $page.data.session}
+            <aside>
+                <Navigation />
+            </aside>
+        {/if}
+        <main>
+            <slot />
+        </main>
+    </div>
 </div>
 
 <style lang="scss">
@@ -32,5 +40,28 @@
             var(--pink-light); /* second color */
         background-size: calc(var(--s) / 4.667) var(--s),
             var(--s) calc(var(--s) / 4.667);
+    }
+
+    .page-content {
+        display: flex;
+
+        main {
+            flex: 1;
+        }
+
+        aside {
+            position: fixed;
+            bottom: 0;
+
+            @media (min-width: $breakpoint-sm) {
+                position: relative;
+                width: 200px;
+            }
+
+            @media (min-width: $breakpoint-md) {
+                position: relative;
+                width: 300px;
+            }
+        }
     }
 </style>

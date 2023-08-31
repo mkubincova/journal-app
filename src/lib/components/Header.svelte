@@ -41,6 +41,7 @@
         justify-content: flex-end;
         align-items: center;
         color: var(--blue-dark);
+        margin-bottom: 40px;
 
         > div {
             padding: 10px 0;
@@ -72,7 +73,7 @@
 
             .email {
                 font-size: 0.85em;
-                font-weight: 400;
+                font-weight: 300;
                 display: block;
             }
         }

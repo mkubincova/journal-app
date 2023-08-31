@@ -1,30 +1,15 @@
 <script lang="ts">
+    import EntryList from "$components/EntryList.svelte";
     import type { PageData } from "./$types";
+    import { Plus } from "lucide-svelte";
 
     export let data: PageData;
 
     $: entries = data.entries;
 </script>
 
-<h1>Entries</h1>
-<a href="/entries/create">new entry</a>
+<div>
+    <h1>Your entries</h1>
 
-<ul>
-    {#if entries.length > 0}
-        {#each entries as entry (entry.id)}
-            <li>
-                <p>{entry.content}</p>
-                <small>{entry.date}</small>
-                <a href="/entries/{entry.id}">detail</a>
-            </li>
-        {/each}
-    {:else}
-        <p>No journal entries yet.</p>
-    {/if}
-</ul>
-
-<style>
-    li {
-        margin-top: 20px;
-    }
-</style>
+    <EntryList {entries} />
+</div>
