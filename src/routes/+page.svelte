@@ -1,7 +1,45 @@
-<script>
+<script lang="ts">
     import { page } from "$app/stores";
     import { signIn } from "@auth/sveltekit/client";
-    import { BookOpen } from "lucide-svelte";
+    import { onMount } from "svelte";
+    import cover from "$assets/welcome-cover.png";
+
+    let typed: HTMLElement;
+    const totype = ["Your", "My", "Our", "Their"];
+
+    const delayTyping_char = 180;
+    const delayErasing_text = 120;
+    const delayTyping_text = 2000;
+
+    let totypeIndex = 0;
+    let charIndex = 0;
+
+    function typeText() {
+        if (charIndex < totype[totypeIndex].length) {
+            typed.textContent += totype[totypeIndex].charAt(charIndex);
+            charIndex++;
+            setTimeout(typeText, delayTyping_char);
+        } else {
+            setTimeout(eraseText, delayTyping_text);
+        }
+    }
+
+    function eraseText() {
+        if (charIndex > 0) {
+            typed.textContent = totype[totypeIndex].substring(0, charIndex - 1);
+            charIndex--;
+            setTimeout(eraseText, delayErasing_text);
+        } else {
+            totypeIndex++;
+
+            if (totypeIndex >= totype.length) totypeIndex = 0;
+            setTimeout(typeText, delayTyping_text);
+        }
+    }
+
+    onMount(() => {
+        if (totype[totypeIndex].length) setTimeout(typeText, delayTyping_text);
+    });
 </script>
 
 <div class="">
@@ -10,44 +48,66 @@
         <a href="/entries">Check your entries</a>
         <a href="/entries/create">Make a new entry</a>
     {:else}
-        <div class="text-center">
-            <div class="logo">
-                <BookOpen size={60} color="var(--white)" />
+        <div class="welcome" style="background-image: url({cover});">
+            <h1>
+                <span class="heading-small"
+                    >Welcome to <span bind:this={typed} class="typed" /><span
+                        class="cursor">&nbsp;</span
+                    ></span>
+                <span />
+                <span class="underline">Journal</span>
+            </h1>
+            <div class="fixed">
+                <button class="btn btn-large" on:click={() => signIn()}
+                    >Get started</button>
             </div>
-            <h1>Welcome to your<br />online journal!</h1>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Phasellus id faucibus sem, eu maximus nisi. Donec efficitur
-                lectus ac odio hendrerit congue. Maecenas hendrerit magna vitae
-                massa faucibus, ac ullamcorper felis porttitor. Sed eu porttitor
-                lorem. Curabitur sed enim a erat feugiat fermentum.
-            </p>
-
-            <button class="btn btn-large" on:click={() => signIn()}
-                >Get Started</button
-            >
         </div>
     {/if}
 </div>
 
 <style lang="scss">
-    p {
-        max-width: 70ch;
-        margin: 0 auto 20px;
-    }
-    button {
-        display: inline-block;
-        margin: auto;
-    }
-
-    .logo {
-        width: 90px;
-        height: 90px;
+    .welcome {
+        height: 100vh;
+        overflow: hidden;
+        position: relative;
         display: flex;
-        justify-content: center;
         align-items: center;
-        border-radius: 5px;
-        background-color: var(--pink-dark);
-        margin: 0 auto 20px;
+        justify-content: center;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: var(--beige);
+        h1 {
+            font-size: 3.2rem;
+            text-align: center;
+        }
+        .fixed {
+            position: fixed;
+            bottom: 20px;
+            z-index: 1;
+        }
+        .underline {
+            color: var(--yellow);
+        }
+        .typed {
+            font-style: italic;
+        }
+
+        .cursor {
+            display: inline-block;
+            animation: blinker 800ms infinite;
+        }
+
+        @keyframes blinker {
+            0% {
+                background-color: var(--green);
+            }
+            50% {
+                background-color: transparent;
+            }
+            100% {
+                background-color: var(--green);
+            }
+        }
     }
 </style>
