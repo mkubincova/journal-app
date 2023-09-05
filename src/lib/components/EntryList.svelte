@@ -1,5 +1,6 @@
 <script lang="ts">
     import Entry from "./Entry.svelte";
+    import { Plus } from "lucide-svelte";
 
     export let entries: any[];
 </script>
@@ -10,15 +11,16 @@
             <Entry {entry} />
         {/each}
     {:else}
-        <p>No journal entries yet.</p>
+        <p>Nothing in here yet...</p>
+        <a href="/entries/create" class="btn"><Plus />New entry</a>
     {/if}
 </ul>
 
 <style lang="scss">
     ul {
-        padding: 20px 0;
+        padding: 10px 0;
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 10px;
     }
 </style>

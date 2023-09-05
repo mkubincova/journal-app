@@ -11,7 +11,7 @@
 
 <div id="app">
     <!-- <Header /> -->
-    <div class="page-content">
+    <div class="page-content {$page.data.session && 'container'}">
         {#if $page.data.session}
             <aside>
                 <Navigation />
@@ -33,22 +33,38 @@
     .page-content {
         display: flex;
 
+        @media (min-width: $breakpoint-sm) {
+            gap: 20px;
+
+            main,
+            aside {
+                padding-top: 40px;
+                padding-bottom: 0;
+            }
+        }
+
+        @media (min-width: $breakpoint-md) {
+            gap: 30px;
+        }
+
         main {
             flex: 1;
+            padding-bottom: 70px;
         }
 
         aside {
             position: fixed;
-            bottom: 0;
+            bottom: 10px;
+            width: calc(100% - 20px);
+            max-width: 420px;
+            left: 50%;
+            transform: translateX(-50%);
 
             @media (min-width: $breakpoint-sm) {
                 position: relative;
                 width: 200px;
-            }
-
-            @media (min-width: $breakpoint-md) {
-                position: relative;
-                width: 300px;
+                transform: none;
+                left: auto;
             }
         }
     }

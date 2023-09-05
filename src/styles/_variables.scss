@@ -1,7 +1,7 @@
 // breakpoints
 $breakpoint-sm: 640px;
 $breakpoint-md: 960px;
-$breakpoint-lg: 1280px;
+$breakpoint-lg: 1020px;
 
 :root {
     // paddings
@@ -9,13 +9,14 @@ $breakpoint-lg: 1280px;
 
     // colors
     --beige: #faf5e9;
+    --beige-dark: #EBD8BD;
     --yellow: #E7B34D;
     --green: #638A7C;
     --green-dark: #37504A;
 
     // font size
     --base: 18px;
-    --h1: 1.75rem;
+    --h1: 2rem;
     --h2: 1.5rem;
     --h3: 1.25rem;
 
@@ -29,7 +30,7 @@ $breakpoint-lg: 1280px;
         --container-padding: 30px;
 
         // font size
-        --h1: 2rem;
+        --h1: 2.2rem;
         --h2: 1.75rem;
         --h3: 1.5rem;
     }

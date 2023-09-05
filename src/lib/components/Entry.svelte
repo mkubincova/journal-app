@@ -6,13 +6,15 @@
 </script>
 
 <li>
-    <p>{entry.content}</p>
-    <hr />
-    <div class="flex">
-        <small>{formatToSimpleDate(entry.date)}</small>
-        <a href="/entries/{entry.id}"
-            ><ArrowRightCircle color="var(--blue-dark)" /></a>
-    </div>
+    <a href="entries/{entry.id}">
+        <p>{entry.content}</p>
+        <hr />
+        <div class="flex">
+            <small>{formatToSimpleDate(entry.date)}</small>
+            <a href="/entries/{entry.id}"
+                ><ArrowRightCircle color="var(--blue-dark)" /></a>
+        </div>
+    </a>
 </li>
 
 <style lang="scss">
