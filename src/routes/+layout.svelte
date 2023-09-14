@@ -28,6 +28,7 @@
         position: relative;
         min-width: 100vw;
         min-height: 100vh;
+        background-color: var(--beige);
     }
 
     .page-content {
@@ -65,6 +66,13 @@
                 width: 200px;
                 transform: none;
                 left: auto;
+            }
+        }
+
+        &:not(.container) {
+            main,
+            aside {
+                padding: 0;
             }
         }
     }

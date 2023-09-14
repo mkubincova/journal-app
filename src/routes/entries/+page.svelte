@@ -8,8 +8,15 @@
     $: entries = data.entries;
 </script>
 
-<div>
-    <h1>Your entries</h1>
+<div class="subpage">
+    <div class="header">
+        <h1>Your entries</h1>
+    </div>
 
-    <EntryList {entries} />
+    <div class="container">
+        <EntryList {entries} />
+    </div>
 </div>
+
+<style lang="scss">
+</style>

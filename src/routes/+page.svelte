@@ -68,7 +68,7 @@
             </h1>
         </div>
 
-        <div>
+        <div class="container">
             <h2>Your entries</h2>
 
             <EntryList {entries} />
@@ -91,8 +91,6 @@
 
 <style lang="scss">
     .home {
-        min-height: 100vh;
-
         .header {
             position: relative;
             z-index: 0;
@@ -119,14 +117,13 @@
             }
 
             h1 {
-                color: var(--yellow);
+                color: white;
                 margin-top: 20px;
                 padding-left: var(--container-padding);
                 padding-right: var(--container-padding);
-                word-break: break-all;
 
                 span {
-                    color: white;
+                    color: var(--yellow-light);
                 }
             }
 
@@ -161,7 +158,6 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        background-color: var(--beige);
         h1 {
             font-size: 3.2rem;
             text-align: center;

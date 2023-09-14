@@ -1,21 +1,50 @@
 <script lang="ts">
     import { Home, BookOpen, PlusCircle, User2, LogOut } from "lucide-svelte";
+    import { page } from "$app/stores";
+
+    const navItems = [
+        {
+            path: "/",
+            name: "Home",
+            icon: Home,
+        },
+        {
+            path: "/entries",
+            name: "Entires",
+            icon: BookOpen,
+        },
+        {
+            path: "/entries/create",
+            name: "New entry",
+            icon: PlusCircle,
+        },
+        {
+            path: "/profile",
+            name: "Profile",
+            icon: User2,
+        },
+        {
+            path: "/auth/signout",
+            name: "Logout",
+            icon: LogOut,
+        },
+    ];
 </script>
 
 <nav>
-    <a href="/"><Home size={30} /><span> Home</span></a>
-    <a href="/entries"><BookOpen size={30} /><span> Entries</span></a>
-    <a href="/entries/create"
-        ><PlusCircle size={30} /><span> New entry</span></a>
-    <a href="/profile"><User2 size={30} /><span> Profile</span></a>
-    <a href="/auth/signout"><LogOut size={30} /><span> Logout</span></a>
+    {#each navItems as item}
+        <a href={item.path} class:active={$page.url.pathname === item.path}>
+            <svelte:component this={item.icon} size={30} />
+            <span>{item.name}</span>
+        </a>
+    {/each}
 </nav>
 
 <style lang="scss">
     nav {
         border-radius: 10px;
         overflow: hidden;
-        background: var(--beige);
+        background: var(--yellow-light);
         display: flex;
         justify-content: space-between;
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -27,13 +56,14 @@
             justify-content: center;
             text-decoration: none;
             padding: 10px;
-
+            color: var(--yellow-dark);
             &:not(:last-child) {
                 border-right: 1px solid white;
             }
 
-            &:hover {
-                background: var(--beige-dark);
+            &:hover,
+            &.active {
+                background: var(--yellow);
             }
 
             span {
@@ -46,14 +76,12 @@
             padding-right: 0;
             padding: 0;
             box-shadow: none;
+            position: sticky;
+            top: 30px;
 
             a {
                 gap: 10px;
                 justify-content: flex-start;
-
-                &:hover {
-                    background: var(--beige-dark);
-                }
 
                 &:not(:last-child) {
                     border-right: none;
