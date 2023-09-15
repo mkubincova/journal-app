@@ -3,6 +3,7 @@
     import type { PageData } from "./$types";
     import { page } from "$app/stores";
     import { formatToDateInput } from "$lib/helpers/formatDate";
+    import { Trash2 } from "lucide-svelte";
 
     export let data: PageData;
 
@@ -16,41 +17,38 @@
     </div>
 
     <form method="POST" action="?/editItem" use:enhance>
-        <label for="content">Content</label><br />
+        <label for="content">Content</label>
         <textarea
             name="content"
             id="content"
             cols="30"
             rows="10"
-            value={entry.content} /><br />
+            value={entry.content} />
         {#if $page.form?.contentError}
             <p class="error">{$page.form.contentError}</p>
         {/if}
 
-        <label for="date">Date</label><br />
+        <label for="date">Date</label>
         <input
             type="datetime-local"
             name="date"
             id="date"
-            value={formatToDateInput(entry.date)} /><br />
-        <br />
+            value={formatToDateInput(entry.date)} />
 
-        <button>Update</button>
+        <button class="btn">Update</button>
     </form>
 
-    <br />
-    <br />
-
-    <form method="POST" action="?/deleteItem" use:enhance>
-        <button type="submit">delete item</button>
+    <form method="POST" action="?/deleteItem" use:enhance class="delete-form">
+        <button type="submit" class="btn"><Trash2 />Delete entry</button>
     </form>
-
-    <br />
-    <a href="/entries">All entries</a>
 </div>
 
 <style lang="scss">
     .header span {
         color: var(--yellow-light);
+    }
+
+    button {
+        margin-top: 30px;
     }
 </style>
