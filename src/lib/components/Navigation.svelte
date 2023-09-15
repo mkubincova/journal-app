@@ -10,7 +10,7 @@
         },
         {
             path: "/entries",
-            name: "Entires",
+            name: "Entries",
             icon: BookOpen,
         },
         {

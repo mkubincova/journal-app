@@ -35,10 +35,11 @@ export const handleAuth = SvelteKitAuth({
 export const handleProtectedRoutes: Handle = async ({ event, resolve }) => {
     const session = await event.locals.getSession();
 
-    if (event.url.pathname.startsWith("/entries") || event.url.pathname.startsWith("/profile")) {
-        if (!session) {
-            throw redirect(303, "/");
-        }
+    if (!session && !event.url.pathname.startsWith("/login")) {
+        throw redirect(303, "/login");
+    }
+    if (session && event.url.pathname.startsWith("/login")) {
+        throw redirect(303, "/");
     }
 
     const response = await resolve(event);
